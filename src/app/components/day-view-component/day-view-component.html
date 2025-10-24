@@ -1,0 +1,37 @@
+<div class="day-view">
+    <div class="day-content">
+        <div class="time-column">
+            @for(hour of hours;track hour){
+            <div class="time-slot">
+                <span class="time-label">{{ formatHour(hour) }}</span>
+            </div>
+            }
+        </div>
+
+        <div class="schedule-column">
+            @for (hour of hours; track $index) {
+            <div class="hour-slot" (click)="onTimeSlotClick(hour)">
+            </div>
+            }
+            <div class="events-container">
+                @for (event of dayEvents; track $index) {
+                <div class="day-event" [style]="getEventStyle(event)" (click)="onEventClick(event, $event)">
+                    <div class="event-content">
+                        <div class="event-title">{{ event.title }}</div>
+                        <div class="event-time-range">
+                            {{ event.startTime | date:'h:mm a' }} - {{ event.endTime | date:'h:mm a' }}
+                        </div>
+                        @if(event.location){
+                        <div class="event-location">
+                            📍 {{ event.location }}
+                        </div>
+                        }
+
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

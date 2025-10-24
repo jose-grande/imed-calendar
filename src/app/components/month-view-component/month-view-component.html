@@ -1,0 +1,32 @@
+<div class="month-view">
+    <div class="weekday-header">
+        @for (day of weekDays; track $index) {
+        <div class="weekday">{{ day }}</div>
+        }
+        
+    </div>
+
+    <div class="calendar-grid">
+        @for (day of calendarDays; track $index) {
+        <div class="calendar-day" [class.other-month]="!day.isCurrentMonth" [class.today]="day.isToday"
+            (click)="onDateClick(day.date)">
+
+            <div class="day-number">{{ day.date.getDate() }}</div>
+
+            <div class="day-events">
+                @for (event of day.events.slice(0, 3); track event) {
+                <div class="event-item" [style.background-color]="event.color" (click)="onEventClick(event, $event)">
+                    <span class="event-time">{{ event.startTime | date:'h:mm a' }}</span>
+                    <span class="event-title">{{ event.title }}</span>
+                </div>
+                }
+                @if(day.events.length > 3){
+                <div class="more-events">
+                    +{{ day.events.length - 3 }} more
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>

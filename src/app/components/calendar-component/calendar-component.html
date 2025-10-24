@@ -1,0 +1,55 @@
+<div class="calendar-container">
+    <!-- Header -->
+    <div class="calendar-header">
+        <div class="header-left">
+            <button class="btn btn-primary" (click)="openNewEventModal()">+ New Event</button>
+            <button class="btn btn-secondary" (click)="today()">Today</button>
+        </div>
+
+        <div class="header-center">
+            <button class="btn btn-icon" (click)="previousPeriod()">‹</button>
+            <h2 class="current-period">{{ getCurrentPeriodLabel() }}</h2>
+            <button class="btn btn-icon" (click)="nextPeriod()">›</button>
+        </div>
+
+        <div class="header-right">
+            <button class="btn btn-view" [class.active]="viewMode === 'day'" (click)="changeView('day')">Day</button>
+            <button class="btn btn-view" [class.active]="viewMode === 'week'" (click)="changeView('week')">Week</button>
+            <button class="btn btn-view" [class.active]="viewMode === 'month'"
+                (click)="changeView('month')">Month</button>
+            <button class="btn btn-view" [class.active]="viewMode === 'agenda'"
+                (click)="changeView('agenda')">Agenda</button>
+        </div>
+    </div>
+
+    <!-- Calendar Views -->
+    <div class="calendar-body">
+        @if(viewMode === 'month'){
+        <app-month-view [currentDate]="currentDate" [events]="events" (eventClick)="openEditEventModal($event)"
+            (dateClick)="openNewEventModal($event)">
+        </app-month-view>
+        }
+        @if (viewMode === 'week') {
+        <app-week-view [currentDate]="currentDate" [events]="events" (eventClick)="openEditEventModal($event)"
+            (timeSlotClick)="openNewEventModal($event.date, $event.hour)">
+        </app-week-view>
+        }
+        @if (viewMode === 'day') {
+        <app-day-view [currentDate]="currentDate" [events]="events" (eventClick)="openEditEventModal($event)"
+            (timeSlotClick)="openNewEventModal(currentDate, $event)">
+        </app-day-view>
+        }
+        @if (viewMode === 'agenda') {
+        <app-agenda-view [currentDate]="currentDate" [events]="events" (eventClick)="openEditEventModal($event)">
+        </app-agenda-view>
+        }
+    </div>
+
+    <!-- Event Modal -->
+    @if(showEventModal){
+    <app-event-modal [event]="selectedEvent" [isEditMode]="isEditMode" (save)="saveEvent($event)"
+        (delete)="deleteEvent($event)" (close)="closeEventModal()">
+    </app-event-modal>
+    }
+
+</div>

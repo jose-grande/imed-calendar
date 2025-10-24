@@ -1,0 +1,57 @@
+<div class="agenda-view">
+    <div class="agenda-filter">
+        <button class="filter-btn" [class.active]="filterMode === 'day'" (click)="changeFilter('day')">Day</button>
+        <button class="filter-btn" [class.active]="filterMode === 'week'" (click)="changeFilter('week')">Week</button>
+        <button class="filter-btn" [class.active]="filterMode === 'month'"
+            (click)="changeFilter('month')">Month</button>
+    </div>
+
+    <div class="agenda-content">
+        @if(agendaGroups.length === 0){
+        <div class="no-events">
+            <div class="no-events-icon">📅</div>
+            <div class="no-events-text">No events scheduled for this period</div>
+        </div>
+        }
+
+        @for(group of agendaGroups;track $index){
+        <div class="agenda-group">
+            <div class="date-header" [class.today]="isToday(group.date)">
+                <div class="date-day">{{ group.date | date:'EEEE' }}</div>
+                <div class="date-full">{{ group.date | date:'MMMM d, y' }}</div>
+            </div>
+
+            <div class="events-list">
+                @for (event of group.events; track event.id) {
+                <div class="agenda-event" (click)="onEventClick(event)">
+                    <div class="event-time-badge" [style.background-color]="event.color">
+                        <div class="time-start">{{ event.startTime | date:'h:mm' }}</div>
+                        <div class="time-period">{{ event.startTime | date:'a' }}</div>
+                    </div>
+
+                    <div class="event-details">
+                        <div class="event-title">{{ event.title }}</div>
+                        <div class="event-meta">
+                            <span class="event-duration">
+                                {{ event.startTime | date:'h:mm a' }} - {{ event.endTime | date:'h:mm a' }}
+                            </span>
+                            @if(event.location){
+                            <span class="event-location">
+                                📍 {{ event.location }}
+                            </span>
+                            }
+
+                        </div>
+                        @if(event.description){
+                        <div class="event-description">
+                            {{ event.description }}
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>

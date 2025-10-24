@@ -1,0 +1,146 @@
+.month-view {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #dadce0;
+}
+
+.weekday {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #5f6368;
+  background-color: #ffffff;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 1px;
+  background-color: #dadce0;
+  border: 1px solid #dadce0;
+  flex: 1;
+}
+
+.calendar-day {
+  background-color: #ffffff;
+  padding: 8px;
+  min-height: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day:hover {
+  background-color: #f8f9fa;
+}
+
+.calendar-day.today {
+  background-color: #e8f0fe;
+}
+
+.calendar-day.other-month {
+  background-color: #f8f9fa;
+}
+
+.calendar-day.other-month .day-number {
+  color: #9aa0a6;
+}
+
+.day-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin-bottom: 4px;
+}
+
+.calendar-day.today .day-number {
+  background-color: #1a73e8;
+  color: white;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.day-events {
+  flex: 1;
+  overflow: hidden;
+}
+
+.event-item {
+  padding: 2px 6px;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.2s;
+}
+
+.event-item:hover {
+  opacity: 0.8;
+}
+
+.event-time {
+  margin-right: 4px;
+  font-weight: 500;
+}
+
+.event-title {
+  font-weight: 400;
+}
+
+.more-events {
+  font-size: 11px;
+  color: #5f6368;
+  margin-top: 2px;
+  padding: 2px 6px;
+}
+
+@media (max-width: 768px) {
+  .month-view {
+    padding: 8px;
+  }
+
+  .weekday {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+
+  .calendar-day {
+    min-height: 80px;
+    padding: 4px;
+  }
+
+  .day-number {
+    font-size: 12px;
+  }
+
+  .event-item {
+    font-size: 11px;
+    padding: 1px 4px;
+  }
+
+  .event-time {
+    display: none;
+  }
+}
